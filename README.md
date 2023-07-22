@@ -1,3 +1,3 @@
-The openai API key breaks when uploaded to github, please use your own key
+Join my discord server!
 
 https://discord.gg/J2D63mVDTC
