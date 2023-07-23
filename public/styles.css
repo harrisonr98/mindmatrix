@@ -1,0 +1,625 @@
+/* Variables */
+:root {
+    --background-color: #1c1c1e;
+    --side-panel-color: #2c2c2e;
+    --button-color: #3a3a3c;
+    --button-hover-color: #48484a;
+    --text-color: #FFFFFF;
+    --border-color: #3a3a3c;
+    --input-border-color: #48484a;
+    --separator-color: #636366;
+    --primary-color: #007aff; /* New primary color for highlight */
+    --font-family: 'Roboto', sans-serif; /* New font family */
+}
+
+.h3, h3 {
+    font-size: 1.5rem;
+}
+/* General */
+body {
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    height: 100vh;
+}
+
+.btn-primary {
+background-color: var(--button-color);
+color: var(--text-color);
+border: none;
+cursor: pointer;
+transition: background-color 0.2s ease-in-out;
+}
+
+.centered-heading {
+    text-align: center;
+    width: 100%;
+}
+.navbar-container {
+    padding: 1rem 1.5rem; /* Padding to match chat-output */
+}
+
+.navbar-dark .navbar-nav .nav-link {
+    color: var(--text-color);
+}
+
+.navbar-dark .navbar-nav .nav-link:hover,
+.navbar-dark .navbar-nav .nav-link:focus,
+.navbar-dark .navbar-nav .nav-link.active {
+    color: var(--primary-color);
+}
+.modal-content {
+    background-color: var(--background-color); /* Change this to match your background color */
+    color: var(--text-color); /* Change this to match your text color */
+    border: 1px solid var(--border-color); /* Adjust modal border color */
+}
+
+.modal-header,
+.modal-footer {
+    border: none; /* Removes the default border */
+}
+
+.modal-header .close {
+    color: var(--text-color); /* Change this to match your text color */
+}
+
+.modal-header .close:hover {
+    color: var(--primary-color); /* Change this to match your highlight color */
+}
+
+.modal-title {
+    color: var(--text-color); /* Change this to match your text color */
+}
+
+.modal-body {
+    color: var(--text-color); /* Change this to match your text color */
+}
+
+#aboutModal {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    display: none; /* Add this line */
+    justify-content: center;
+    align-items: center;
+  }
+
+  #aboutModal.show {
+    display: flex; /* Add this rule */
+  }
+
+  #aboutModal .modal-dialog {
+    margin: auto;
+  }
+
+
+  h2 {
+      margin-top: 0;
+  }
+
+
+  /* Chat Interface */
+  .chat-interface {
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      position: relative;
+  }
+
+  .chat-output {
+    border: 1px solid var(--border-color);
+    border-radius: 5%;
+    background-color: var(--background-color);
+    flex-grow: 1;
+    margin-left: 15.5rem;
+    margin-right: 15.5rem;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    height: 50%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; /* Align bot messages to start */
+}
+
+  .chat-input-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+      flex-grow: 0;
+      padding: 1rem 0;
+      margin-bottom: 40px;
+  }
+
+  .input-group-wrapper {
+      width: 50%;
+  }
+
+  .text-below-input {
+      color: var(--text-color);
+      text-align: center;
+      font-size: 0.9rem;
+  }
+
+/* Chat Input */
+.chat-input input {
+    background-color: #555;
+    color: var(--text-color);
+    border: 1px solid var(--input-border-color);
+    padding: 0.5rem 1rem; /* More padding for input */
+}
+
+.form-control::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #ffffff; /* Your desired color */
+    opacity: 1; /* Firefox */
+}
+
+  .chat-input {
+      padding: 0.5rem;
+      margin: 0 auto;
+      width: 75%;
+  }
+
+  .chat-input button {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out; /* Transition for smoother hover effect */
+}
+
+.chat-input button:hover {
+    background-color: var(--button-hover-color);
+}
+
+  /* Chatbot List */
+  .chatbot-list-container {
+      overflow-y: hidden;
+      position: relative;
+  }
+
+  .chatbot-list{
+      overflow-y: auto;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+  }
+  .category-list{
+    overflow-y: auto;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+  .chatbot-list ul {
+    list-style-type: none;
+    padding: 10px;
+  }
+
+  .category-list ul {
+    list-style-type: none;
+    padding: 10px;
+  }
+
+  .category-img-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+  .category-img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin: 0 3px;
+}
+
+    /* Side Panel */
+  .side-panel {
+      background-color: var(--side-panel-color);
+      color: var(--text-color);
+  }
+
+  /* Chatbot Buttons */
+  .chatbot-btn {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    padding: 1rem; /* More padding for buttons */
+    transition: background-color 0.2s ease-in-out; /* Transition for smoother hover effect */
+    height: 120px; /* Add a fixed height to the buttons */
+    min-width: 150px; /* Add a minimum width to the buttons */
+    text-align: center; /* Ensure the text is in the center */
+    flex-direction: row-reverse;
+}
+
+.back-btn {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem; /* More padding for buttons */
+    transition: background-color 0.2s ease-in-out; /* Transition for smoother hover effect */
+    height: 60px; /* Add a fixed height to the buttons */
+}
+
+.category-btn {
+    background-color: var(--button-color);
+    color: var(--text-color);
+    border: none;
+    cursor: pointer;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0; /* More padding for buttons */
+    transition: background-color 0.2s ease-in-out; /* Transition for smoother hover effect */
+    height: 120px; /* Add a fixed height to the buttons */
+}
+
+
+
+
+
+
+.chatbot-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Center the content vertically */
+    align-items: center; /* Center the content horizontally */
+    flex-grow: 1; /* Allow this element to take up the remaining space */
+}
+
+.chatbot-name {
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.chatbot-description {
+    margin: 0;
+    font-size: 0.7rem;
+    color: #ccc;
+}
+
+.chatbot-image {
+    width: 40%;
+    object-fit: cover;
+    border-radius: 10%;
+    margin: 10px;
+}
+  /* Bottom Area */
+  .bottom-area {
+      text-align: center;
+  }
+
+  .bottom-area p {
+      margin-bottom: 0.5rem;
+  }
+
+  .bottom-area button {
+      background-color: var(--button-color);
+      color: var(--text-color);
+      border: none;
+      cursor: pointer;
+  }
+
+  .bottom-area button:hover {
+      background-color: var(--button-hover-color);
+  }
+
+  /* Separator */
+  .separator {
+      border-top: 1px solid var(--separator-color);
+      margin: 0.5rem 0;
+  }
+
+
+  /* chat message styles */
+.system-message {
+    color: var(--text-color);
+    font-style: italic;
+    margin-bottom: 0.5rem;
+    margin-top: 0.1rem;
+    font-size: .8rem;
+}
+
+.user-message {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 95%;
+    color: var(--text-color);
+    background-color: var(#00000000);
+    padding: 0.5em;
+    padding-top: 1em;
+    border-radius: 1.5em;
+    margin-bottom: 1em;
+    position: relative;
+    word-wrap: break-word;
+    flex-direction: column;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+}
+
+.user-text {
+    margin-left: calc(45px + 0.5em);
+    margin-top: -20px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    width: calc(100% - 45px);
+}
+
+.bot-message {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 95%;
+    color: var(--text-color);
+    background-color: var(#00000000);
+    padding: 0.5em;
+    padding-top: 1em;
+    border-radius: 1.5em;
+    margin-bottom: 1em;
+    position: relative;
+    word-wrap: break-word;
+    flex-direction: column;
+}
+
+.bot-info {
+    display: flex;
+    align-items: center;
+}
+
+.bot-text {
+    margin-left: calc(45px + 0.5em);
+    margin-top: -20px;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: auto;
+    width: calc(100% - 45px);
+}
+
+.bot-message-content {
+    display: block;
+    word-wrap: break-word;
+}
+
+.user-message strong,
+.bot-message strong {
+    margin-right: 0.5em;
+    margin-top: -25px;
+    width: 100%;
+    flex-shrink: 0; /* prevents shrinking the name when the text is long */
+}
+
+.user-message:before {
+    left: 100%;
+    border-left-color: var(--button-hover-color); /* bot message arrow color */
+    border-right: 0;
+    margin-left: -10px;
+}
+
+.bot-message:before {
+    left: 100%;
+    border-left-color: var(--button-hover-color); /* bot message arrow color */
+    border-right: 0;
+    margin-left: -10px;
+}
+
+
+.bot-message img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5em;
+    align-self: flex-start; /* align image to top */
+}
+
+.user-message img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-right: 0.5em;
+    align-self: flex-start; /* align image to top */
+}
+
+/* This will apply to all scrollbars in your page */
+::-webkit-scrollbar {
+    width: 10px; /* Width of the scrollbar */
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #222; /* Same as the --background-color */
+    margin-top: 30px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #555; /* Same as the --button-hover-color */
+    border-radius: 5px; /* Make the handle have rounded corners */
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #444; /* Same as the --button-color */
+}
+
+
+/* Typing Indicator */
+.typing-indicator {
+    margin: 0.5rem;
+    font-size: 0.8rem;
+    color: var(--text-color);
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+.typing-indicator.active {
+    opacity: 1;
+}
+
+.chatbot-btn.active-bot {
+    box-shadow: 0 0 10px rgba(0,123,255,.7); /* Change color and size to suit your theme */
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.form-control:disabled, .form-control[readonly] {
+    background-color: #222;
+    opacity: 1;
+}
+
+
+
+.form-control:focus {
+    background-color: #555555;
+    color: #ffffff;
+}
+
+input[disabled]::placeholder {
+    color: #555; /* replace red with your desired color */
+}
+
+#toggle-auto-chat {
+    border-top-right-radius: 0.25rem;
+    border-bottom-right-radius: 0.25rem;
+}
+.selected-chatbots {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: auto;
+    overflow: hidden;
+    flex-wrap: wrap;
+    padding-bottom: 1rem;
+}
+
+.selected-chatbots img {
+    max-width: 100px; /* Change to preferred max width */
+    height: auto; /* Maintain aspect ratio */
+}
+
+
+
+@media (max-width: 768px) {
+    /* Mobile styles */
+
+    .selected-chatbots {
+        height: auto;
+    }
+
+    #open-side-panel-btn {
+        width: 180px; /* Adjust the width as per your preference */
+        margin: 0 auto; /* Center the button horizontally */
+      }
+    .chat-output {
+      margin-left: 0rem;
+      margin-right: 0rem;
+      margin-bottom: 1rem;
+      margin-top: 1rem;
+}
+    .chat-input{
+      width: 100%;
+    }
+  
+    .input-group-wrapper {
+      width: 100%;
+    }
+  
+    .chat-input-container {
+        padding: 0;
+        margin-bottom: 5px;
+    }
+	
+    .side-panel {
+        background-color: var(--side-panel-color);
+        color: var(--text-color);
+        position: fixed; /* Change position to fixed */
+        top: 0; /* Position the side panel at the top */
+        left: -100%; /* Hide the side panel off-screen */
+        width: 100%; /* Set the width to 100% */
+        height: 100%; /* Set the height to 100% */
+        transition: left 0.3s ease-in-out; /* Add a transition for smooth sliding */
+        z-index: 999; /* Set a higher z-index to ensure the side panel overlays other elements */
+      }
+
+      .selected-chatbots img {
+        max-width: 70px;
+      }
+
+    .side-panel.active {
+    transform: translateX(0); /* Slide the side panel in */
+    }
+
+    .navbar-nav.ml-auto {
+        flex-direction: column;  /* Change the flex direction to stack the navigation vertically */
+        align-items: center;  /* Center align the navigation items */
+        margin-top: 10px;  /* Add some space at the top of the navigation */
+      }
+      
+      
+      .navbar-toggler {
+        margin-right: 10px;  /* Add some spacing between the toggle button and the navigation items */
+      }
+    
+      .navbar-container {
+        padding: 0rem;
+    }
+
+html, body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+}
+    .chat-interface {
+        position: fixed;
+        height: 100%;
+        padding-bottom: 0rem;
+    }
+  .modal-backdrop {
+    display: none !important; /* Hide the modal backdrop */
+  }
+  
+  #aboutModal.modal {
+    background: none; /* Remove the modal backdrop */
+  }
+  
+  #aboutModal .modal-dialog {
+    margin: 0; /* Remove the default margin */
+    height: 100vh; /* Set the height to full viewport height */
+    max-height: 100%; /* Limit the height to the viewport height */
+    width: 100%; /* Set the width to full viewport width */
+  }
+  
+  #aboutModal .modal-content {
+    height: 100%; /* Set the height of the modal content to full height */
+    border-radius: 0; /* Remove the border radius */
+  }
+  
+  #aboutModal .modal-body {
+    overflow-y: auto; /* Enable scrolling for the modal body content */
+  }
+
+}
+
+
+
