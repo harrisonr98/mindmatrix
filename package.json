@@ -1,0 +1,18 @@
+{
+  "name": "mindmatrix",
+  "version": "0.0.0",
+  "description": "AI chat with historical figures",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Harx",
+  "license": "None",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.1",
+    "openai": "^3.2.1"
+  }
+}
