@@ -3,264 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>Chat Interface with Chatbot Selection</title>
+    <title>MindMatrix - Chat with historical figures</title>
 
     <!--Bootstrap and jQuery -->
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
 
     <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
-    <div class="container-fluid h-100">
-        <div class="row h-100">
-            <div class="col-12 col-md-2 side-panel p-3 d-flex flex-column" id="sidePanel">
-                <h2 class="centered-heading">Select a Category</h2>
-                <hr class="separator">
-                <div class="chatbot-list-container flex-grow-1 mb-3">
-                    <div class="category-list">
-                        <ul>
-                            
-                            <!-- categories -->
-                            <li class="mb-2">
-                                <button class="btn btn-block category-btn" id="historical-figures">
-                                    <h3>Historical Figures</h3>
-                                    <div class="category-img-container">
-                                        <img class="category-img" src="images/Albert_Einstein.jpg" alt="Albert Einstein">
-                                        <img class="category-img" src="images/Isaac_Newton.jpg" alt="Isaac Newton">
-                                        <img class="category-img" src="images/Leonardo_da_Vinci.jpg" alt="Leonardo da Vinci">
-                                    </div>
-                                </button>
-                            </li>
-
-                            <li class="mb-2">
-                                <button class="btn btn-block category-btn" id="philosophers">
-                                    <h3>Philosophers</h3>
-                                    <div class="category-img-container">
-                                        <img class="category-img" src="images/Socrates.jpg" alt="Socrates">
-                                        <img class="category-img" src="images/Nietzsche.jpg" alt="Nietzsche">
-                                        <img class="category-img" src="images/Rene_Descartes.jpg" alt="Rene Descartes">
-                                    </div>
-                                </button>
-                            </li>
-
-                            <li class="mb-2">
-                                <button class="btn btn-block category-btn" id="political-leaders">
-                                    <h3>Political Leaders</h3>
-                                    <div class="category-img-container">
-                                        <img class="category-img" src="images/Winston_Churchill.jpg" alt="Winston Churchill">
-                                        <img class="category-img" src="images/Abraham_Lincoln.jpg" alt="Abraham Lincoln">
-                                        <img class="category-img" src="images/Roosevelt.jpg" alt="Franklin D Roosevelt">
-
-                                    </div>
-                                </button>
-                            </li>
-
-                            <li class="mb-2">
-                                <button class="btn btn-block category-btn" id="psychologists">
-                                    <h3>Psychologists</h3>
-                                    <div class="category-img-container">
-                                        <img class="category-img" src="images/Sigmund_Freud.jpg" alt="Sigmund Freud">
-                                        <img class="category-img" src="images/Carl_Jung.jpg" alt="Carl Jung">
-                                        <img class="category-img" src="images/Stanley_Milgram.jpg" alt="Stanley Stanley Milgram">
-
-                                    </div>
-                                </button>
-                            </li>
-
-                            <li class="mb-2">
-                                <button class="btn btn-block category-btn" id="civil-rights-activists">
-                                    <h3>Civil Rights Activists</h3>
-                                    <div class="category-img-container">
-                                        <img class="category-img" src="images/Martin_Luther_King_Jr.jpg" alt="Martin Luther King Jr">
-                                        <img class="category-img" src="images/Mahatma_Gandhi.jpg" alt="Mahatma Gandhi">
-                                        <img class="category-img" src="images/Malcolm_X.jpg" alt="Malcolm X">
-
-                                    </div>
-                                </button>
-                            </li>
 
 
-                        </ul>
-                    </div>
-
-
-                    <!-- back button -->
-                    <div class="chatbot-list d-none">
-                        <ul>
-                            <li class="mb-2">
-                                <button class="btn btn-block back-btn" id="back"> < Back to Categories</button>
-                            </li>
-
-
-
-            <!-- chatbots -->
-
-                        <!-- historical figures -->
-                            <li class="mb-2">
-                                <button class="btn btn-block chatbot-btn" id="bot1" data-img-src="images/Albert_Einstein.jpg" data-category="historical-figures">
-                                    <div class="chatbot-info">
-                                        <h3 class="chatbot-name">Albert Einstein</h3>
-                                        <p class="chatbot-description">(1879-1955)</p>
-                                    </div>
-                                    <img class="chatbot-image" src="images/Albert_Einstein.jpg" alt="Albert Einstein">
-                                </button>
-                            </li>
-                            <li class="mb-2">
-                                <button class="btn btn-block chatbot-btn" id="bot2" data-img-src="images/Isaac_Newton.jpg" data-category="historical-figures">
-                                    <div class="chatbot-info">
-                                        <h3 class="chatbot-name">Isaac Newton</h3>
-                                        <p class="chatbot-description">(1643-1727)</p>
-                                    </div>
-                                    <img class="chatbot-image" src="images/Isaac_Newton.jpg" alt="Isaac Newton">
-                                </button>
-                            </li>
-
-                            <li class="mb-2">
-                                <button class="btn btn-block chatbot-btn" id="bot3" data-img-src="images/Leonardo_da_Vinci.jpg" data-category="historical-figures">
-                                    <div class="chatbot-info">
-                                        <h3 class="chatbot-name">Leonardo da Vinci</h3>
-                                        <p class="chatbot-description">(1452-1519)</p>
-                                    </div>
-                                    <img class="chatbot-image" src="images/Leonardo_da_Vinci.jpg" alt="Leonardo da Vinci">
-                                </button>
-                            </li>
-
-
-                            
-
-                            
-                        <!-- philosophers --> 
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot6" data-img-src="images/Socrates.jpg" data-category="philosophers">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Socrates</h3>
-                                    <p class="chatbot-description">(469-399 BCE)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Socrates.jpg" alt="Socrates">
-                            </button>
-                        </li>
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot8" data-img-src="images/Nietzsche.jpg" data-category="philosophers">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Friedrich Nietzsche</h3>
-                                    <p class="chatbot-description">(1844-1900)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Nietzsche.jpg" alt="Friedrich Nietzsche">
-                            </button>
-                        </li>
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot9" data-img-src="images/Rene_Descartes.jpg" data-category="philosophers">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Rene Descartes</h3>
-                                    <p class="chatbot-description">(1596-1650)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Rene_Descartes.jpg" alt="Rene Descartes">
-                            </button>
-                        </li>
-
-                        <!-- political leaders --> 
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot9" data-img-src="images/Winston_Churchill.jpg" data-category="political-leaders">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Winston Churchill</h3>
-                                    <p class="chatbot-description">(1874-1965)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Winston_Churchill.jpg" alt="Winston-Churchill">
-                            </button>
-                        </li>
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot10" data-img-src="images/Abraham_Lincoln.jpg" data-category="political-leaders">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Abraham Lincoln</h3>
-                                    <p class="chatbot-description">(1809-1865)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Abraham_Lincoln.jpg" alt="Abraham Lincoln">
-                            </button>
-                        </li>
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot11" data-img-src="images/Roosevelt.jpg" data-category="political-leaders">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Franklin D. Roosevelt</h3>
-                                    <p class="chatbot-description">(1882-1945)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Roosevelt.jpg" alt="Franklin D. Roosevelt">
-                            </button>
-                        </li>
-
-                        <!-- civil rights activists -->
-                            <li class="mb-2">
-                                <button class="btn btn-block chatbot-btn" id="bot5" data-img-src="images/Martin_Luther_King_Jr.jpg" data-category="civil-rights-activists">
-                                    <div class="chatbot-info">
-                                        <h3 class="chatbot-name">Martin Luther King Jr</h3>
-                                        <p class="chatbot-description">(1929-1968)</p>
-                                    </div>
-                                    <img class="chatbot-image" src="images/Martin_Luther_King_Jr.jpg" alt="Martin Luther King Jr">
-                                </button>
-                            </li>
-                            
-                            <li class="mb-2">
-                                <button class="btn btn-block chatbot-btn" id="bot4" data-img-src="images/Mahatma_Gandhi.jpg" data-category="civil-rights-activists">
-                                    <div class="chatbot-info">
-                                        <h3 class="chatbot-name">Mahatma Gandhi</h3>
-                                        <p class="chatbot-description"> (1869-1948)</p>
-                                    </div>
-                                    <img class="chatbot-image" src="images/Mahatma_Gandhi.jpg" alt="Mahatma Gandhi">
-                                </button>
-                            </li>
-
-                            <li class="mb-2">
-                                <button class="btn btn-block chatbot-btn" id="bot12" data-img-src="images/Malcolm_X.jpg" data-category="civil-rights-activists">
-                                    <div class="chatbot-info">
-                                        <h3 class="chatbot-name">Malcolm X</h3>
-                                        <p class="chatbot-description"> (1925-1965)</p>
-                                    </div>
-                                    <img class="chatbot-image" src="images/Malcolm_X.jpg" alt="Malcolm X">
-                                </button>
-                            </li>
-                            
-                        <!-- psychologists -->
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot7" data-img-src="images/Sigmund_Freud.jpg" data-category="psychologists">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Sigmund Freud</h3>
-                                    <p class="chatbot-description">(1856-1939)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Sigmund_Freud.jpg" alt="Sigmund Freud">
-                            </button>
-                        </li>
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot13" data-img-src="images/Carl_Jung.jpg" data-category="psychologists">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Carl Jung</h3>
-                                    <p class="chatbot-description">(1875-1961)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Carl_Jung.jpg" alt="Carl Jung">
-                            </button>
-                        </li>
-                        <li class="mb-2">
-                            <button class="btn btn-block chatbot-btn" id="bot13" data-img-src="images/Stanley_Milgram.jpg" data-category="psychologists">
-                                <div class="chatbot-info">
-                                    <h3 class="chatbot-name">Stanley Milgram</h3>
-                                    <p class="chatbot-description">(1933-1984)</p>
-                                </div>
-                                <img class="chatbot-image" src="images/Stanley_Milgram.jpg" alt="Stanley Milgram">
-                            </button>
-                        </li>
-
-                            <!--end of chatbots-->
-                        </ul>
-                    </div>
-                </div>
-                <hr class="separator">
-                <div class="bottom-area">
-                    <button class="btn btn-primary d-md-none" id="slide-back-btn">Chat ></button>
-                  </div>
-            </div>
-            <div class="col-12 col-md-10 chat-interface d-flex flex-column">
                 <div class="modal fade" id="aboutModal" tabindex="-1" role="dialog" aria-labelledby="aboutModalLabel" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered" role="document">
                         <div class="modal-content">
@@ -271,8 +30,8 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                Welcome to MindMatrix, a platform created in HTML, CSS, and JavaScript with the assistance of GPT-4 and its powerful API.<br><br>
-                                Select one or more chatbots from the selection panel and engage in a conversation, or simply sit back and observe as AI minds interact with each other.
+                                Welcome to MindMatrix, a platform created in HTML, CSS, and JavaScript which utilizes the OpenAI API to retrieve responses in the style of many different historical figures.<br><br>
+                                Select chatbots and engage in or automate a conversation between AI minds.
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -290,48 +49,201 @@
                             <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                            <div class="navbar-nav ml-auto">
+                            <div class="navbar-nav">
                                 <button type="button" class="btn nav-item nav-link" data-toggle="modal" data-target="#aboutModal">About</button>
                                 <button type="button" class="btn nav-item nav-link" onclick="window.location.href='https://discord.gg/HVNVPHABpN'">Discord</button>
-                                
+
                             </div>
                         </div>
                     </nav>
                 </div>
-                
 
-                <div class="selected-chatbots d-flex justify-content-center align-items-center">
-                    <!-- Chatbot images will be dynamically added here -->
+
+                <div class="selected-chatbots">
+                                        <!-- Chatbot images will be dynamically added here -->
 
                 </div>
 
-                <button class="btn btn-primary d-lg-none" id="open-side-panel-btn">Select Chatbot(s)</button>
+                <div class="unselect-and-clear-buttons-container">
+                    <button id="unselect-all-button" >Unselect All</button>
+                    <button id="clear-chat-button" >Clear Chat</button>
+                    </div>
+                
 
-
-                <div class="chat-output flex-grow-1 p-3">
+                <div class="chat-output flex-grow-1">
                 </div>
 
-                
+
 
 
                 <div class="chat-input-container">
                     <div class="input-group-wrapper">
-                        <div class="chat-input input-group p-3">
+                        <div class="chat-input input-group">
+
                             <input type="text" id="chat-input" class="form-control" placeholder="Message">
                             <div class="input-group-append">
                                 <button id="send-button" class="btn btn-primary">Send</button>
 
-                                <button id="toggle-auto-chat" class="btn btn-primary" style="display: none;">Automate</button>
+                                    <button id="automate-chat-button" class="btn btn-secondary" disabled>Auto-Chat</button>
                             </div>
+ 
+                            
                         </div>
-                        </div>
+
+                    <div class="help-message-container">
+                        <div class="help-message" id="help-message">Select chatbot(s) below.</div>
+                    </div>
+
+                    </div>
+
+                            <div class="auto-help-message">Select multiple chatbots to enable Auto-Chat.</div>
+
+
+
+                        <div class="chatbot-selection">
+                    
+                            <!-- chatbots -->
+                
+                                        <!-- historical figures -->
+
+                                            <button class="btn chatbot-btn" id="bot1" data-img-src="images/Albert_Einstein.jpg" data-category="historical-figures">
+                                                <div class="chatbot-info">
+                                                    <h3 class="chatbot-name">Albert Einstein</h3>
+                                                    <p class="chatbot-description">(1879-1955)</p>
+                                                </div>
+                                                <img class="chatbot-image" src="images/Albert_Einstein.jpg" alt="Albert Einstein">
+                                            </button>
+
+                                            <button class=" btn chatbot-btn" id="bot2" data-img-src="images/Isaac_Newton.jpg" data-category="historical-figures">
+                                                <div class="chatbot-info">
+                                                    <h3 class="chatbot-name">Isaac Newton</h3>
+                                                    <p class="chatbot-description">(1643-1727)</p>
+                                                </div>
+                                                <img class="chatbot-image" src="images/Isaac_Newton.jpg" alt="Isaac Newton">
+                                            </button>
+                
+                                            <button class=" btn chatbot-btn" id="bot3" data-img-src="images/Leonardo_da_Vinci.jpg" data-category="historical-figures">
+                                                <div class="chatbot-info">
+                                                    <h3 class="chatbot-name">Leonardo da Vinci</h3>
+                                                    <p class="chatbot-description">(1452-1519)</p>
+                                                </div>
+                                                <img class="chatbot-image" src="images/Leonardo_da_Vinci.jpg" alt="Leonardo da Vinci">
+                                            </button>
+                
+                
+                
+                
+                
+                                    <!-- philosophers -->
+                                        <button class=" btn chatbot-btn" id="bot6" data-img-src="images/Socrates.jpg" data-category="philosophers">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Socrates</h3>
+                                                <p class="chatbot-description">(469-399 BCE)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Socrates.jpg" alt="Socrates">
+                                        </button>
+
+                                        <button class=" btn chatbot-btn" id="bot8" data-img-src="images/Nietzsche.jpg" data-category="philosophers">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Friedrich Nietzsche</h3>
+                                                <p class="chatbot-description">(1844-1900)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Nietzsche.jpg" alt="Friedrich Nietzsche">
+                                        </button>
+
+                                        <button class=" btn chatbot-btn" id="bot9" data-img-src="images/Rene_Descartes.jpg" data-category="philosophers">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Rene Descartes</h3>
+                                                <p class="chatbot-description">(1596-1650)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Rene_Descartes.jpg" alt="Rene Descartes">
+                                        </button>
+                
+                                    <!-- political leaders -->
+                                        <button class=" btn chatbot-btn" id="bot15" data-img-src="images/Winston_Churchill.jpg" data-category="political-leaders">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Winston Churchill</h3>
+                                                <p class="chatbot-description">(1874-1965)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Winston_Churchill.jpg" alt="Winston-Churchill">
+                                        </button>
+
+                                        <button class=" btn chatbot-btn" id="bot10" data-img-src="images/Abraham_Lincoln.jpg" data-category="political-leaders">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Abraham Lincoln</h3>
+                                                <p class="chatbot-description">(1809-1865)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Abraham_Lincoln.jpg" alt="Abraham Lincoln">
+                                        </button>
+
+                                        <button class=" btn chatbot-btn" id="bot11" data-img-src="images/Roosevelt.jpg" data-category="political-leaders">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Franklin D. Roosevelt</h3>
+                                                <p class="chatbot-description">(1882-1945)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Roosevelt.jpg" alt="Franklin D. Roosevelt">
+                                        </button>
+                
+                                    <!-- civil rights activists -->
+
+                                    <button class=" btn chatbot-btn" id="bot5" data-img-src="images/Martin_Luther_King_Jr.jpg" data-category="civil-rights-activists">
+                                                <div class="chatbot-info">
+                                                    <h3 class="chatbot-name">Martin Luther King Jr</h3>
+                                                    <p class="chatbot-description">(1929-1968)</p>
+                                                </div>
+                                                <img class="chatbot-image" src="images/Martin_Luther_King_Jr.jpg" alt="Martin Luther King Jr">
+                                            </button>
+                
+                                            <button class=" btn chatbot-btn" id="bot4" data-img-src="images/Mahatma_Gandhi.jpg" data-category="civil-rights-activists">
+                                                <div class="chatbot-info">
+                                                    <h3 class="chatbot-name">Mahatma Gandhi</h3>
+                                                    <p class="chatbot-description"> (1869-1948)</p>
+                                                </div>
+                                                <img class="chatbot-image" src="images/Mahatma_Gandhi.jpg" alt="Mahatma Gandhi">
+                                            </button>
+                
+                                            <button class=" btn chatbot-btn" id="bot12" data-img-src="images/Malcolm_X.jpg" data-category="civil-rights-activists">
+                                                <div class="chatbot-info">
+                                                    <h3 class="chatbot-name">Malcolm X</h3>
+                                                    <p class="chatbot-description"> (1925-1965)</p>
+                                                </div>
+                                                <img class="chatbot-image" src="images/Malcolm_X.jpg" alt="Malcolm X">
+                                            </button>
+                
+                                    <!-- psychologists -->
+                                        <button class=" btn chatbot-btn" id="bot7" data-img-src="images/Sigmund_Freud.jpg" data-category="psychologists">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Sigmund Freud</h3>
+                                                <p class="chatbot-description">(1856-1939)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Sigmund_Freud.jpg" alt="Sigmund Freud">
+                                        </button>
+
+                                        <button class=" btn chatbot-btn" id="bot13" data-img-src="images/Carl_Jung.jpg" data-category="psychologists">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Carl Jung</h3>
+                                                <p class="chatbot-description">(1875-1961)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Carl_Jung.jpg" alt="Carl Jung">
+                                        </button>
+
+                                        <button class=" btn chatbot-btn" id="bot14" data-img-src="images/Stanley_Milgram.jpg" data-category="psychologists">
+                                            <div class="chatbot-info">
+                                                <h3 class="chatbot-name">Stanley Milgram</h3>
+                                                <p class="chatbot-description">(1933-1984)</p>
+                                            </div>
+                                            <img class="chatbot-image" src="images/Stanley_Milgram.jpg" alt="Stanley Milgram">
+                                        </button>
+                
+                                        <!--end of chatbots-->
+                                </div>
                     </div>
                 </div>
             </div>
-        </div>
+        
 
 
-
+</body>
 
 <script src="/scripts.js"></script>
 
