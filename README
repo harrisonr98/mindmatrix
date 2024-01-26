@@ -1,5 +1,3 @@
-# The openai API key breaks when uploaded to github, please use your own key in the .env file.
-
 # MindMatrix
 MindMatrix is a web app that allows you to have OpenAI-powered conversations with historical figures.
 
