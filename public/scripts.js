@@ -1,83 +1,47 @@
-$(document).ready(function() { 
-    let activeChatbots = [];
-    let activeChatbotImgSrcs = {};
-    let isTyping = false;
-    let isConversationAutomated = false;
-    let chatHistory = [];
-    let messageQueue = [];
+$(document).ready(function() {  // Wait for the document to be ready before running any code
+    let activeChatbots = [];    // Array to store the names of the active chatbots
+    let activeChatbotImgSrcs = {};  // Object to store the image srcs of the active chatbots
+    let isTyping = false;    // Boolean to track if the chatbot is typing
+    let isConversationAutomated = false;   // Boolean to track if the conversation is automated
+    let chatHistory = [];   // Array to store the chat history
+    let messageQueue = [];  // Array to store the messages to be sent to the server
 
 
 
-    $("#open-side-panel-btn").click(function() {
-        $(".side-panel").css("left", "0"); // Show the side panel by setting left position to 0
-      });
-      
-      
-      $("#slide-back-btn").click(function() {
-        $(".side-panel").css("left", "-100%"); // Hide the side panel by setting left position to -100%
-      });
-      
-      
 
-    $('#toggle-auto-chat').click(function(event) {
-        event.stopPropagation();
+    // Initially disable the automate chat button
+    $('#automate-chat-button').prop('disabled', true); 
 
-        if (!isConversationAutomated && $('.form-control').val()) {
-            sendUserMessage();
+
+
+
+    function randomChatbotJoinAndMessage() {
+        let chatbotButtons = $('.chatbot-btn');
+        if (chatbotButtons.length > 0) {
+            // Select a random chatbot
+            let randomIndex = Math.floor(Math.random() * chatbotButtons.length);
+            let randomChatbotButton = chatbotButtons.eq(randomIndex);
+            let chatbotName = randomChatbotButton.find('.chatbot-name').text();
+            let chatbotImgSrc = randomChatbotButton.data('img-src');
+
+            // Add chatbot to activeChatbots and update UI
+            activeChatbots.push(chatbotName);
+            activeChatbotImgSrcs[chatbotName] = chatbotImgSrc;
+            randomChatbotButton.addClass('active-bot');
+            $(".selected-chatbots").append('<img data-bot="' + chatbotName + '" src="' + chatbotImgSrc + '" alt="' + chatbotName + '">');
+
+            // Delay before sending initial message from the chatbot
+            setTimeout(function() {
+                let initialMessage = `Hello there! I'm ${chatbotName}, one of the historical figures you can chat with on MindMatrix. What's on your mind today?`;
+                addBotMessage(initialMessage, chatbotName);
+            }, 1000); // 1-second delay
         }
+    }
 
-        isConversationAutomated = !isConversationAutomated;
+    // Call the function to randomly select a chatbot and make it send a message
+    randomChatbotJoinAndMessage();
 
-
-        if (isConversationAutomated) {
-            $(this).text('Pause');
-            $('#chat-input').attr('disabled', 'disabled');
-            $('#chat-input').prop('placeholder', 'Pause to send a message');
-            if (activeChatbots.length > 1) {
-                automateConversation();
-            }
-        } else {
-            $(this).text('Automate');
-            $('#chat-input').removeAttr('disabled');
-            $('#chat-input').prop('placeholder', 'Type your message here...');
-        }
-    });
-
-
-$('input').focus(function(){
-    $(this).attr('placeholder','');
- }).blur(function(){
-    $(this).attr('placeholder','Type your message here...');
- });
-
-
- $('.category-btn').click(function(event) {
-    // Get the id of the clicked category button
-    let category = $(this).attr('id');
-    // Hide the category list
-    $('.category-list').addClass('d-none');
-    // Show the chatbot list
-    $('.chatbot-list').removeClass('d-none');
-    // Change the title to "Select Chatbot(s)"
-    $('.side-panel h2').text('Select Chatbot(s)');
-    // Filter the chatbot buttons based on the category
-    $('.chatbot-btn').each(function() {
-        if ($(this).data('category') === category) {
-            $(this).removeClass('d-none');
-        } else {
-            $(this).addClass('d-none');
-        }
-    });
-});
-
-$('.back-btn').click(function(event) {
-    // Show the category list
-    $('.category-list').removeClass('d-none');
-    // Hide the chatbot list
-    $('.chatbot-list').addClass('d-none');
-    // Change the title back to "Select a Category"
-    $('.side-panel h2').text('Select a Category');
-});
+    
 
 
  $('.chatbot-btn').click(async function(event) {
@@ -87,8 +51,8 @@ $('.back-btn').click(function(event) {
     let imgSrc = $(this).data('img-src');
 
     let index = activeChatbots.indexOf(clickedChatbot);
+
     if (activeChatbots.includes(clickedChatbot)) {
-        addSystemMessage(`${clickedChatbot} has left the chat.`);
         $(this).removeClass('active-bot');
         const chatbotIndex = activeChatbots.indexOf(clickedChatbot);
         activeChatbots.splice(chatbotIndex, 1);
@@ -100,166 +64,190 @@ $('.back-btn').click(function(event) {
         activeChatbots.push(clickedChatbot);
         activeChatbotImgSrcs[clickedChatbot] = $(this).data('img-src');
         $(this).addClass('active-bot');
-        addSystemMessage(`${clickedChatbot} has joined the chat.`);
 
         // add image to the chat interface
-        $(".selected-chatbots").append('<img data-bot="' + clickedChatbot + '" src="' + imgSrc + '" alt="' + clickedChatbot + '" width="100" style="margin-right: 10px;">');
+        $(".selected-chatbots").append('<img data-bot="' + clickedChatbot + '" src="' + imgSrc + '" alt="' + clickedChatbot + '">');
     }
-        if (activeChatbots.length > 1) {
-            $('#toggle-auto-chat').text(isConversationAutomated ? 'Pause' : 'Automate');
-            $('#toggle-auto-chat').show();
-            $('#send-button').hide();
+
+
+        // Enable or disable the automate chat button
+        const automateChatButton = $('#automate-chat-button');
+        if (activeChatbots.length <= 1) {
+            automateChatButton.prop('disabled', true);
         } else {
-            $('#toggle-auto-chat').hide();
-            $('#send-button').show();
-            if (isConversationAutomated) {
-                $('#toggle-auto-chat').click();
-            }
-        }
-
-    });
-
-
-
-    $('.btn-primary').click(sendUserMessage);
-    $('.form-control').keypress(function(event) {
-        if (event.which == 13) {
-            event.preventDefault();
-            if (activeChatbots.length > 1) {
-                if (!isConversationAutomated) {
-                    $('#toggle-auto-chat').click();
-                } else {
-                    sendUserMessage();
-                }
-            } else {
-                sendUserMessage();
-            }
+            automateChatButton.prop('disabled', false);
         }
     });
 
 
-  
 
+$('#automate-chat-button').click(function() {
+    isConversationAutomated = !isConversationAutomated;
+    $(this).text(isConversationAutomated ? 'Pause' : 'Auto-Chat');
 
-    function sendUserMessage() {
-        let message = $('.form-control').val();
-        if (message) {
-            addUserMessage(message);
-            $('.form-control').val('');
-            if (activeChatbots.length > 0 && !isConversationAutomated) {
-                messageQueue.push({userMessage: message, activeChatbot: activeChatbots[0], activeChatbots: activeChatbots});
-            }
-            scrollChatToBottom(true);
-        }
+    // Check if there's text in the input and send it
+    let userInput = $('#chat-input').val(); // Get the user input
+    if (userInput.trim().length > 0) { // Check if the input is not empty
+        sendUserMessage(); // Send the user message
     }
 
-
-
-
-
-    function typeMessage(messageElement, messageText, observer, currentIndex = 0, delay = 30) {
-        if (currentIndex < messageText.length) {
-            isTyping = true;
-            messageElement.textContent += messageText.charAt(currentIndex);
-            setTimeout(() => typeMessage(messageElement, messageText, observer, currentIndex + 1, delay), delay);
-        }     else {
-            observer.disconnect();
-            isTyping = false;
-            if (isConversationAutomated) {
-                automateConversation();
-            }
-            scrollChatToBottom();
-        }
+    if (isConversationAutomated) {
+        // Hide form control, send button, and help message
+        $('#chat-input').hide();
+        $('#send-button').hide();
+        $('#help-message').hide(); // Hide the help message
+        automateConversation();
+    } else {
+        // Show form control, send button, and help message
+        $('#chat-input').show();
+        $('#send-button').show();
+        $('#help-message').show(); // Show the help message
     }
+});
 
-    async function automateConversation() {
-        if (!isConversationAutomated || isTyping || activeChatbots.length < 2) {
-            return;
-        }
 
-        const serverData = {
-            chatHistories: chatHistory,
-            activeChatbots: activeChatbots
-        };
 
-        messageQueue.push(serverData);
+$('.btn-primary').click(sendUserMessage); // Send user message when the button is clicked
+$('.form-control').keypress(function(event) { // Listen for keypress on the input
+    if (event.which == 13) { // Enter key
+        event.preventDefault(); // Prevent the default action (scroll / move caret)
+        sendUserMessage(); // Send the user message
     }
+});
 
 
 
 
-    function addSystemMessage(message) {
-        chatHistory.push({role: 'system', content: message});
-        $('.chat-output').append(`<p class="system-message">${message}</p>`);
+function sendUserMessage() {
+    let message = $('.form-control').val();
+    if (message) {
+        addUserMessage(message);
+        $('.form-control').val('');
+        if (activeChatbots.length > 0 && !isConversationAutomated) {
+            messageQueue.push({userMessage: message, activeChatbot: activeChatbots[0], activeChatbots: activeChatbots});
+        }
+        scrollChatToBottom(true);
+        scrollPageToTop(); // New function call to scroll to the top
+        closeKeyboard(); // New function call to close the keyboard
+    }
+}
+
+// Function to scroll the page to the top
+function scrollPageToTop() {
+    window.scrollTo(0, 0); // Scrolls to the top of the page
+}
+
+// Function to close the keyboard on mobile devices
+function closeKeyboard() {
+    // This will trigger blur event and close the keyboard on mobile devices
+    document.activeElement.blur();
+    $('input').blur();
+}
+
+function typeMessage(messageElement, messageText, observer, currentIndex = 0, delay = 30) {
+    if (currentIndex < messageText.length) {
+        isTyping = true;
+        messageElement.textContent += messageText.charAt(currentIndex);
+        setTimeout(() => typeMessage(messageElement, messageText, observer, currentIndex + 1, delay), delay);
+    }     else {
+        observer.disconnect();
+        isTyping = false;
+        if (isConversationAutomated) {
+            automateConversation();
+        }
         scrollChatToBottom();
     }
+}
 
-
-    function addUserMessage(message) {
-        const userImg = 'images/user_pfp.jpg';
-        chatHistory.push({role: 'user', content: `You ${message}`});
-        let messageElement = $(`
-            <div class="user-message">
-                <div class="user-info">
-                    <img src="${userImg}" alt="User">
-                    <strong>You</strong>
-                </div>
-                <div class="user-text">
-                    ${message}
-                </div>
-            </div>
-        `);
-        $('.chat-output').append(messageElement);
-        scrollChatToBottom(true);
+async function automateConversation() {
+    if (!isConversationAutomated || isTyping || activeChatbots.length < 2) {
+        return;
     }
 
-    function addBotMessage(message, activeChatbot) {
-        let imageSrc = activeChatbotImgSrcs[activeChatbot];
-        chatHistory.push({role: 'assistant', content: `${activeChatbot}: ${message}`});
-        let messageElement = $(`
-        <div class="bot-message">
-            <div class="bot-info">
-                <img src="${imageSrc}" alt="${activeChatbot}">
-                <strong>${activeChatbot}</strong>
+    const serverData = {
+        chatHistories: chatHistory,
+        activeChatbots: activeChatbots
+    };
+
+    messageQueue.push(serverData);
+}
+
+
+
+
+function addSystemMessage(message) {
+    chatHistory.push({role: 'system', content: message});
+    $('.chat-output').append(`<p class="system-message">${message}</p>`);
+    scrollChatToBottom();
+}
+
+
+function addUserMessage(message) {
+    const userImg = 'images/user_pfp.jpg';
+    chatHistory.push({role: 'user', content: `You ${message}`});
+    let messageElement = $(`
+        <div class="user-message">
+            <div class="user-info">
+                <img src="${userImg}" alt="User">
+                <strong>You</strong>
             </div>
-            <div class="bot-text">
-                <span class="typewriter"></span>
+            <div class="user-text">
+                ${message}
             </div>
         </div>
     `);
     $('.chat-output').append(messageElement);
-
-
     scrollChatToBottom(true);
+}
+
+function addBotMessage(message, activeChatbot) {
+    let imageSrc = activeChatbotImgSrcs[activeChatbot];
+    chatHistory.push({role: 'assistant', content: `${activeChatbot}: ${message}`});
+    let messageElement = $(`
+    <div class="bot-message">
+    <div class="bot-info">
+        <img src="${imageSrc}" alt="${activeChatbot}">
+        <strong>${activeChatbot}</strong>
+    </div>
+    <div class="bot-text">
+        <span class="typewriter"></span>
+    </div>
+</div>
+`);
+$('.chat-output').append(messageElement);
 
 
-    let botText = messageElement.find('.bot-text')[0];
-    let lastHeight = botText.clientHeight;
-    const observer = new MutationObserver(function() {
-        if (botText.clientHeight > lastHeight) {
-            lastHeight = botText.clientHeight;
+scrollChatToBottom(true);
 
-            scrollChatToBottom();
-        }
-    });
-    observer.observe(botText, {attributes: true, childList: true, characterData: true, subtree: true});
 
-    typeMessage(messageElement.find('.typewriter')[0], message, observer);
+let botText = messageElement.find('.bot-text')[0];
+let lastHeight = botText.clientHeight;
+const observer = new MutationObserver(function() {
+if (botText.clientHeight > lastHeight) {
+    lastHeight = botText.clientHeight;
+
+    scrollChatToBottom();
+}
+});
+observer.observe(botText, {attributes: true, childList: true, characterData: true, subtree: true});
+
+typeMessage(messageElement.find('.typewriter')[0], message, observer);
 }
 
 
 
 
 function scrollChatToBottom(forceScroll = false) {
-    const chatOutput = $('.chat-output');
-    const scrollHeight = chatOutput[0].scrollHeight;
-    const scrollTop = chatOutput.scrollTop();
-    const scrollPos = scrollTop + chatOutput.outerHeight();
+const chatOutput = $('.chat-output');
+const scrollHeight = chatOutput[0].scrollHeight;
+const scrollTop = chatOutput.scrollTop();
+const scrollPos = scrollTop + chatOutput.outerHeight();
 
 
-    if (forceScroll || scrollHeight - scrollPos < 50) {
-        chatOutput.scrollTop(scrollHeight);
-    }
+if (forceScroll || scrollHeight - scrollPos < 50) {
+chatOutput.scrollTop(scrollHeight);
+}
+
 }
 async function processQueue() {
     if (!isTyping && messageQueue.length > 0) {
@@ -326,12 +314,30 @@ processQueue();
 
 });
 
+$('#clear-chat-button').click(function() {
+    // Clear chat history
+    chatHistory = [];
+
+    // Clear chat output on the page
+    $('.chat-output').empty();
+
+    // Optional: Add a system message stating chat has been cleared
+    addSystemMessage('Chat has been cleared.');
+});
 
 
 
+$('#unselect-all-button').click(function() {
+    // Remove all active chatbots
+    activeChatbots = [];
+    activeChatbotImgSrcs = {};
 
+    // Update UI: Remove active class from chatbot buttons
+    $('.chatbot-btn').removeClass('active-bot');
 
+    // Clear the selected chatbots images
+    $(".selected-chatbots").empty();
 
-
-
-
+    // Hide the automate chat button if it's visible
+    $('#toggle-auto-chat').hide();
+});
