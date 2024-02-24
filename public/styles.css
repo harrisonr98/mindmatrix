@@ -188,7 +188,7 @@ padding-right: 0px;
     flex-grow: 1;
     margin-bottom: 8px;
     height: calc(100vh - 400px);
-    width: 700px;
+    width: 950px;
     overflow-y: auto;
     overflow-x: hidden;
     display: flex;
