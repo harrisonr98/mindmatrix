@@ -40,7 +40,7 @@ transition: background-color 0.2s ease-in-out;
     width: 100%;
 }
 .navbar-container {
-width: 700px;
+width: 950px;
 
 }
 
@@ -48,7 +48,7 @@ width: 700px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
-    width: 700px;
+    width: 950px;
     margin-top: 8px;
     margin-bottom: 8px;
     
@@ -298,7 +298,7 @@ padding-right: 0px;
     padding: 1rem;
     transition: background-color 0.2s ease-in-out;
     height: 120px;
-    width: 225px;
+    width: 308px;
     text-align: center;
     flex-direction: row-reverse;
 }
@@ -327,7 +327,7 @@ padding-right: 0px;
 }
 
 .chatbot-image {
-    width: 40%;
+    width: 38%;
     object-fit: cover;
     border-radius: 10%;
 }
@@ -551,7 +551,7 @@ padding-right: 0px;
     display: flex;
     flex-wrap: wrap;
     gap: 12px;
-    width: 700px;
+    width: 950px;
     justify-content: center;
     margin-top: 8px;
 }
